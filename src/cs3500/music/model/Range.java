@@ -52,6 +52,7 @@ public class Range implements Iterable<Pitch>, Iterator<Pitch> {
 
   //Iterators vars
   private int curr;
+  private boolean reverse = false;
 
   /**
    * Returns an iterator over elements of type {@code T}.
@@ -60,7 +61,7 @@ public class Range implements Iterable<Pitch>, Iterator<Pitch> {
    */
   @Override
   public Iterator<Pitch> iterator() {
-    this.curr = this.min.ordinal();
+    this.curr = reverse ? this.max.ordinal() : this.min.ordinal();
     return this;
   }
 
@@ -73,6 +74,8 @@ public class Range implements Iterable<Pitch>, Iterator<Pitch> {
    */
   @Override
   public boolean hasNext() {
+    if (reverse)
+      return this.curr >= this.min.ordinal();
     return this.curr <= this.max.ordinal();
   }
 
@@ -84,7 +87,10 @@ public class Range implements Iterable<Pitch>, Iterator<Pitch> {
   @Override
   public Pitch next() {
     Pitch p = Pitch.values()[curr];
-    curr++;
+    if (reverse)
+      curr--;
+    else
+      curr++;
     return p;
   }
 
@@ -97,5 +103,15 @@ public class Range implements Iterable<Pitch>, Iterator<Pitch> {
   @Override
   public int hashCode() {
     return Objects.hash(this.min, this.max);
+  }
+
+  /**
+   * Set to true if you want to iterate from max -> min
+   * Otherwise it will iterate from min -> max
+   *
+   * @param reveres a boolean
+   */
+  public void setReverse(boolean reveres) {
+    this.reverse = reveres;
   }
 }

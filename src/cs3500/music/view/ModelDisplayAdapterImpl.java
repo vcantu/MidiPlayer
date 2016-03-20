@@ -76,4 +76,12 @@ public class ModelDisplayAdapterImpl implements ModelDisplayAdapter {
   public int getLength() {
     return model.getLength();
   }
+
+  /**
+   * @return the song's tempo
+   */
+  @Override
+  public int getTempo() {
+    return model.getTempo();
+  }
 }

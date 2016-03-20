@@ -53,4 +53,9 @@ public interface ModelDisplayAdapter {
    * @return the song's length
    */
   int getLength();
+
+  /**
+   * @return the song's tempo
+   */
+  int getTempo();
 }

@@ -138,12 +138,16 @@ public class GenericMusicModel implements MusicModel {
     if (this.beats.size() == 0)
       return new Range(Pitch.C3, Pitch.GS3);//default range
 
-    Pitch min = this.beats.get(0).getRange().min;//cannot be null otherwise throws an exception
-    Pitch max = this.beats.get(0).getRange().max;
+    Pitch min = null;
+    Pitch max = null;
 
     boolean first = true;
     for (Map.Entry<Integer, Beat> e : this.beats.entrySet()) {
       Beat b = e.getValue();
+      if (min == null || max == null) {
+        min = b.getRange().min;
+        max = b.getRange().max;
+      }
       if (!first && !b.isEmpty()) {
         if (b.getRange().min.ordinal() < min.ordinal())
           min = b.getRange().min;
@@ -204,5 +208,13 @@ public class GenericMusicModel implements MusicModel {
   @Override
   public void setTempo(int tempo) {
     this.tempo = tempo;
+  }
+
+  /**
+   * @return the tempo of this song
+   */
+  @Override
+  public int getTempo() {
+    return this.tempo;
   }
 }

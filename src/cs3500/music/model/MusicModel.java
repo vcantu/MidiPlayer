@@ -101,4 +101,9 @@ public interface MusicModel {
    * Sets the tempo of this piece
    */
   void setTempo(int tempo);
+
+  /**
+   * @return the tempo of this song
+   */
+  int getTempo();
 }

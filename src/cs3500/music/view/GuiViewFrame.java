@@ -21,7 +21,10 @@ public class GuiViewFrame extends JFrame implements MusicView {
     JScrollPane scrollFrame = new JScrollPane(noteView);
     this.noteView.setAutoscrolls(true);
     scrollFrame.setPreferredSize(new Dimension(1500, 500));
+
+    getContentPane().setLayout(new BorderLayout());
     this.getContentPane().add(scrollFrame);
+
     this.pack();
   }
 

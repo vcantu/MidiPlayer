@@ -13,7 +13,9 @@ import java.awt.*;
 public class NoteView extends JPanel {
 
   private ModelDisplayAdapter model;
-  private int stepH = 20, stepW = 20, paddingLeft = 40, paddingTop = 40;
+  private int stepH = 20, stepW = 20,
+          paddingLeft = 40, paddingRight = 10,
+          paddingTop = 40, paddingBottom = 10;
 
   @Override
   public void paintComponent(Graphics g) {
@@ -23,17 +25,38 @@ public class NoteView extends JPanel {
 
     Graphics2D g2d = (Graphics2D)g;
 
-    drawNoteGrid(paddingLeft, paddingTop, g2d);
+    drawNoteGrid(paddingLeft, paddingTop, 4, g2d);
+    drawNoteRange(0, paddingTop, g2d);
+    drawBeatNums(paddingLeft, paddingTop, 8, g2d);
   }
 
-  private void drawNoteGrid(int startX, int startY, Graphics2D g2d) {
+  private void drawNoteRange(int startX, int startY, Graphics2D g2d) {
+    Range range = model.getRange();
+    range.setReverse(true);
+
+    int y = 0;
+    for (Pitch p : range) {
+      g2d.drawString(p.toString(), startX,
+              startY + stepH * y + (stepH / 2) + 4);
+      y++;
+    }
+  }
+
+  private void drawBeatNums(int startX, int startY, int every, Graphics2D g2d) {
+
+    for (int x = 0; x < model.getLength(); x += every) {
+      g2d.drawString(x + "", startX + stepH * x - 5, startY - 5);
+    }
+  }
+
+  private void drawNoteGrid(int startX, int startY, int splitEvery, Graphics2D g2d) {
     Range range = model.getRange();
     int rangeLen = range.length();
 
     for (int x = 0; x < model.getLength(); x++) {
       Beat b = model.getBeatAt(x);
       for (int y = 0; y < rangeLen; y++) {
-        if (b != null) {
+        if (model.hasNoteAt(x)) {
           switch (b.getStatusAt(Pitch.values()[range.max.ordinal() - y])) {
             default:
             case EMPTY:
@@ -55,7 +78,7 @@ public class NoteView extends JPanel {
         int top = startY + y * stepH, bottom = top + stepH;
         g2d.drawLine(left, top, right, top);
         g2d.drawLine(left, bottom, right, bottom);
-        if (x % 4 == 0) {
+        if (x % splitEvery == 0) {
           g2d.drawLine(left, top, left, bottom);
         }
       }
@@ -86,7 +109,7 @@ public class NoteView extends JPanel {
     if (this.model == null)
       return super.getPreferredSize();
     else
-      return new Dimension(model.getLength() * stepW + paddingLeft,
-              model.getRange().length() * stepH + paddingTop);
+      return new Dimension(model.getLength() * stepW + paddingLeft + paddingRight,
+              model.getRange().length() * stepH + paddingTop + paddingBottom);
   }
 }

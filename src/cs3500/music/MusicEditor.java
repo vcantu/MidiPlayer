@@ -9,9 +9,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import cs3500.music.model.MusicModel;
 import cs3500.music.util.GenericMusicModelBuilder;
 import cs3500.music.util.MusicReader;
-import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.ModelDisplayAdapterImpl;
-import cs3500.music.view.MusicView;
+import cs3500.music.view.*;
 
 
 public class MusicEditor {
@@ -24,14 +22,18 @@ public class MusicEditor {
 
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     MusicView view = new GuiViewFrame();
-    //MidiView midiView = new MidiViewImpl();
+    MidiView midiView = new MidiViewImpl();
     // You probably need to connect these views to your model, too...
     MusicModel model = MusicReader.parseFile(
-            new FileReader(new File(myst1)),
+            new FileReader(new File(myst3)),
             new GenericMusicModelBuilder());
 
-    view.setModel(new ModelDisplayAdapterImpl(model));
+    ModelDisplayAdapter adapter = new ModelDisplayAdapterImpl(model);
+    view.setModel(adapter);
+    midiView.setModel(adapter);
+
     view.initialize();
+    midiView.initialize();
   }
 
 }
