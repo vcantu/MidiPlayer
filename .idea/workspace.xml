@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="16c1ff0f-5921-405e-bfe1-00d73b868cf9" name="Default" comment="added method getNotesAt() to the model">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs3500/music/view/MusicConsoleView.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Test/cs3500/music/tests/MusicConsoleViewTest.java" afterPath="" />
+    <list default="true" id="16c1ff0f-5921-405e-bfe1-00d73b868cf9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs3500/music/MusicEditor.java" afterPath="$PROJECT_DIR$/src/cs3500/music/MusicEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs3500/music/model/MusicConsoleView.java" afterPath="$PROJECT_DIR$/src/cs3500/music/model/MusicConsoleView.java" />
     </list>
     <ignored path="MusicProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -151,6 +147,11 @@
     <option name="ROOT_SYNC" value="SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="FORCE_PUSH_ALLOWED" value="true" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="master" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="vcantu" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="MidiPlayer" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -1041,7 +1042,7 @@
       <workItem from="1457147604538" duration="2301000" />
       <workItem from="1457878777357" duration="2682000" />
       <workItem from="1457987426792" duration="1150000" />
-      <workItem from="1458496047437" duration="2395000" />
+      <workItem from="1458496047437" duration="2545000" />
     </task>
     <task id="LOCAL-00001" summary="added method getNotesAt() to the model">
       <created>1457881253071</created>
@@ -1049,7 +1050,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457881253071</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added console view and fixed old console view (draw)">
+      <created>1458499744989</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1458499744989</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1085,11 +1092,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47976000" />
+    <option name="totallyTimeSpent" value="48126000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1616" height="876" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1154,7 +1161,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added method getNotesAt() to the model" />
-    <option name="LAST_COMMIT_MESSAGE" value="added method getNotesAt() to the model" />
+    <MESSAGE value="added console view and fixed old console view (draw)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added console view and fixed old console view (draw)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
