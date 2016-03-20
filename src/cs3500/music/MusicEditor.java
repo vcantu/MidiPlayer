@@ -1,15 +1,17 @@
 package cs3500.music;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.sound.midi.InvalidMidiDataException;
+
 import cs3500.music.model.MusicModel;
 import cs3500.music.util.GenericMusicModelBuilder;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.ModelDisplayAdapterImpl;
-
-import javax.sound.midi.InvalidMidiDataException;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import cs3500.music.view.MusicView;
 
 
 public class MusicEditor {
@@ -21,7 +23,7 @@ public class MusicEditor {
           myst3 = "res/mystery-3.txt";
 
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    GuiViewFrame view = new GuiViewFrame();
+    MusicView view = new GuiViewFrame();
     //MidiView midiView = new MidiViewImpl();
     // You probably need to connect these views to your model, too...
     MusicModel model = MusicReader.parseFile(

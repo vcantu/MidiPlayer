@@ -1,5 +1,8 @@
 package cs3500.music.model;
 
+import cs3500.music.view.ModelDisplayAdapterImpl;
+import cs3500.music.view.MusicView;
+
 /**
  * Created by Viviano on 2/29/2016.
  */
@@ -13,31 +16,13 @@ public class MusicConsoleView {
     model.addNote(new MusicNote(5, 10, Pitch.GS6));
     model.addNote(new MusicNote(10, 5, Pitch.GS6));
 
-    System.out.println(draw(model));
+    MusicView view = new cs3500.music.view.MusicConsoleView();
 
+    view.setModel(new ModelDisplayAdapterImpl(model));
 
-    MusicModel m = new GenericMusicModel();
+    view.initialize();
 
 
   }
 
-  public static String draw(MusicModel model) {
-    StringBuilder sb = new StringBuilder();
-    String l = "" + model.getLength();
-    sb.append(String.format("%" + l.length() + "s", " "));
-    sb.append(model.getRange() + "\n");
-
-    for (int i = 0; i < model.getLength(); i++) {
-      int c = l.length() - ("" + i).length();
-      if (c > 0)
-        sb.append(String.format("%d%" + c + "s", i, ""));
-      else
-        sb.append(i);
-
-      if (model.hasNoteAt(i))//draw beat
-        sb.append(model.getBeatAt(i).beatToString(model.getRange()));
-      sb.append("\n");
-    }
-    return sb.toString();
-  }
 }
