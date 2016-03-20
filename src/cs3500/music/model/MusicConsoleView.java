@@ -1,5 +1,6 @@
 package cs3500.music.model;
 
+import cs3500.music.view.ConsoleView;
 import cs3500.music.view.ModelDisplayAdapterImpl;
 import cs3500.music.view.MusicView;
 
@@ -16,7 +17,7 @@ public class MusicConsoleView {
     model.addNote(new MusicNote(5, 10, Pitch.GS6));
     model.addNote(new MusicNote(10, 5, Pitch.GS6));
 
-    MusicView view = new cs3500.music.view.MusicConsoleView();
+    MusicView view = new ConsoleView();
 
     view.setModel(new ModelDisplayAdapterImpl(model));
 
