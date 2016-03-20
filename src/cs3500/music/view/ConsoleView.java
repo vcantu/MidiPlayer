@@ -4,7 +4,7 @@ package cs3500.music.view;
 /**
  * Created by Ryan on 3/20/16.
  */
-public class MusicConsoleView implements MusicView {
+public class ConsoleView implements MusicView {
 
   ModelDisplayAdapter model;
 
