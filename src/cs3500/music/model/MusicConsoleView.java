@@ -21,8 +21,6 @@ public class MusicConsoleView {
     view.setModel(new ModelDisplayAdapterImpl(model));
 
     view.initialize();
-
-
   }
 
 }

@@ -22,9 +22,8 @@ public class NoteView extends JPanel {
       return;
 
     Graphics2D g2d = (Graphics2D)g;
-    int startY = getStartY(model);
 
-    drawNoteGrid(paddingLeft, startY + paddingTop, g2d);
+    drawNoteGrid(paddingLeft, paddingTop, g2d);
   }
 
   private void drawNoteGrid(int startX, int startY, Graphics2D g2d) {
@@ -42,18 +41,18 @@ public class NoteView extends JPanel {
               break;
             case HEAD:
               g2d.setColor(Color.BLUE);
-              g2d.fillRect(x * stepW, startY + y * stepH, stepW, stepH);
+              g2d.fillRect(startX + x * stepW, startY + y * stepH, stepW, stepH);
               break;
             case TAIL:
               g2d.setColor(Color.GREEN);
-              g2d.fillRect(x * stepW, startY + y * stepH, stepW, stepH);
+              g2d.fillRect(startX + x * stepW, startY + y * stepH, stepW, stepH);
               break;
           }
         }
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
-        int left = x * stepW, right = x * stepW + stepW;
-        int top = startY + y * stepH, bottom = y * stepH + startY + stepH;
+        int left = startY + x * stepW, right = left + stepW;
+        int top = startY + y * stepH, bottom = top + stepH;
         g2d.drawLine(left, top, right, top);
         g2d.drawLine(left, bottom, right, bottom);
         if (x % 4 == 0) {
@@ -63,15 +62,8 @@ public class NoteView extends JPanel {
     }
     //draw last line
     g2d.drawLine(
-            model.getLength() * stepW, startY,
-            model.getLength() * stepW, startY + rangeLen * stepH);
-  }
-
-
-  private int getStartY(ModelDisplayAdapter model) {
-    int range = model.getRange().length();
-    range *= stepH;
-    return getHeight() / 2 - range / 2;
+            startX + model.getLength() * stepW, startY,
+            startX + model.getLength() * stepW, startY + rangeLen * stepH);
   }
 
   public void setModel(ModelDisplayAdapter model) {
