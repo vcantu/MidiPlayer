@@ -24,8 +24,9 @@ public class MusicEditor {
     MusicView view = new GuiViewFrame();
     MidiView midiView = new MidiViewImpl();
     // You probably need to connect these views to your model, too...
-    MusicModel model = MusicReader.parseFile(
-            new FileReader(new File(myst3)),
+    MusicModel model =
+            MusicReader.parseFile(
+            new FileReader(new File(myst1)),
             new GenericMusicModelBuilder());
 
     ModelDisplayAdapter adapter = new ModelDisplayAdapterImpl(model);
@@ -34,6 +35,7 @@ public class MusicEditor {
 
     view.initialize();
     midiView.initialize();
+
   }
 
 }

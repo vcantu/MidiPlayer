@@ -27,13 +27,15 @@ public class MidiViewImpl implements MidiView {
     }
     synth = tempSynth;
     receiver = tempRec;
+    synth.loadAllInstruments(synth.getDefaultSoundbank());
   }
 
   public void playNote(Note note, int tempo) throws InvalidMidiDataException {
-    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, note.getInstrument(),
+    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, note.getInstrument() - 1,
             note.getPitch().ordinal(), note.getVolume());
-    MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, note.getInstrument(),
+    MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, note.getInstrument() - 1,
             note.getPitch().ordinal(), note.getVolume());
+
     this.receiver.send(start, -1);
     this.receiver.send(stop, this.synth.getMicrosecondPosition() + tempo * note.getDuration());
   }
