@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Viviano on 2/29/2016.
+ * Represents a Generic Music Model
  */
 public class GenericMusicModel implements MusicModel {
 
@@ -207,6 +207,9 @@ public class GenericMusicModel implements MusicModel {
    */
   @Override
   public void setTempo(int tempo) {
+    if (tempo < 0)
+      throw new IllegalArgumentException("Tempo can't be below 0");
+
     this.tempo = tempo;
   }
 

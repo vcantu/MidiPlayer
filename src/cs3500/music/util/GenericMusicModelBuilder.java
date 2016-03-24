@@ -6,7 +6,7 @@ import cs3500.music.model.MusicNote;
 import cs3500.music.model.Pitch;
 
 /**
- * Created by Viviano on 3/18/2016.
+ * Builds a Generic Music Model
  */
 public class GenericMusicModelBuilder implements CompositionBuilder<MusicModel> {
 
@@ -44,13 +44,16 @@ public class GenericMusicModelBuilder implements CompositionBuilder<MusicModel> 
    * @param start      The start time of the note, in beats
    * @param end        The end time of the note, in beats
    * @param instrument The instrument number (to be interpreted by MIDI)
-   * @param pitch      The pitch (in the range [0, 127], where 60 represents C4, the middle-C on a piano)
+   * @param pitch      The pitch (in the range [0, 127], where 60 represents C4, the middle-C on a
+   *                   piano)
    * @param volume     The volume (in the range [0, 127])
    * @return
    */
   @Override
-  public CompositionBuilder<MusicModel> addNote(int start, int end, int instrument, int pitch, int volume) {
-    this.model.addNote(new MusicNote(start, (end - start), instrument, Pitch.values()[pitch], volume));
+  public CompositionBuilder<MusicModel> addNote(int start, int end, int instrument, int pitch,
+                                                int volume) {
+    this.model.addNote(new MusicNote(start, (end - start), instrument, Pitch.values()[pitch],
+            volume));
     return this;
   }
 }
