@@ -20,17 +20,22 @@ public class ModelIOCreator {
     this.appendable = appendable;
   }
 
-  public void create() {
+  public void create() throws FileNotFoundException {
     safeAppend("Which view do you want? \'console\', \'visual\' or \'midi\'\n");
+    if (!scan.hasNext())
+      return;
     String type = this.scan.next();
+
     safeAppend("Which song do you want to play? \'mary\', \'myst1\', \'myst2\' " +
             "or \'myst3\'\n");
+    if (!scan.hasNext())
+      return;
     String song = this.scan.next();
 
     try {
       viewFromParams(type, song).initialize();
-    } catch (Exception e) {
-      safeAppend("Bad input! try again!\n");
+    } catch (IllegalArgumentException e) {
+      safeAppend("Bad Input!\n");
     }
     create();
   }
@@ -40,25 +45,31 @@ public class ModelIOCreator {
     MusicView view = MusicViewFactory.build(type);
     MusicModel model =
             MusicReader.parseFile(
-                    new FileReader(new File(songFile(song))),
+                    new FileReader(songFile(song)),
                     new GenericMusicModelBuilder());
     view.setModel(new ModelDisplayAdapterImpl(model));
     return view;
   }
 
-  private String songFile(String shortName) {
+  private File songFile(String shortName) {
+    String filename = "";
     switch (shortName) {
       case "mary":
-        return "res/mary-little-lamb.txt";
+        filename =  "mary-little-lamb.txt";
+        break;
       case "myst1":
-        return "res/mystery-1.txt";
+        filename = "mystery-1.txt";
+        break;
       case "myst2":
-        return "res/mystery-2.txt";
+        filename = "mystery-2.txt";
+        break;
       case "myst3":
-        return "res/mystery-3.txt";
+        filename = "mystery-3.txt";
+        break;
       default:
         throw new IllegalArgumentException("Invalid song name!");
     }
+    return new File(filename);
   }
 
   private void safeAppend(String str) {
