@@ -1,9 +1,14 @@
 package cs3500.music.tests;
 
-import cs3500.music.model.*;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import cs3500.music.model.GenericMusicModel;
+import cs3500.music.model.MusicModel;
+import cs3500.music.model.MusicNote;
+import cs3500.music.model.Note;
+import cs3500.music.model.Pitch;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Viviano on 3/4/2016.
@@ -90,5 +95,27 @@ public class MusicModelTest {
       assertEquals(false, m.hasNoteAt(i));
     }
   }
+
+
+  @Test
+  public void tempoTests() {
+    MusicModel m = new GenericMusicModel();
+
+    m.setTempo(13);
+    assertEquals(m.getTempo(), 13);
+
+    m.setTempo(0);
+    assertEquals(m.getTempo(), 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void badTempTest() {
+    MusicModel m = new GenericMusicModel();
+
+    m.setTempo(-3);
+    m.setTempo(-100);
+  }
+
+
 
 }
