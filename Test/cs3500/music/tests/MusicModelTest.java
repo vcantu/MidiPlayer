@@ -11,7 +11,7 @@ import cs3500.music.model.Pitch;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Viviano on 3/4/2016.
+ * Tests for the GenericMusicModel class
  */
 public class MusicModelTest {
 
