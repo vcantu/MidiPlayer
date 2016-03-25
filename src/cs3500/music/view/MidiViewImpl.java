@@ -76,6 +76,9 @@ public class MidiViewImpl implements MidiView {
     if (model == null)
       return;
 
+    int milli = model.getTempo() / 1000;
+    int nano = model.getTempo() % 1000;
+
     for (int beat = 0; beat < model.getLength(); beat++){
       if (model.hasNoteAt(beat)) {
         Beat b = model.getBeatAt(beat);
@@ -90,7 +93,7 @@ public class MidiViewImpl implements MidiView {
         }
       }
       try {
-        Thread.sleep(model.getTempo() / 1000);
+        Thread.sleep(milli, nano);
       } catch (Exception e) {
         e.printStackTrace();
       }

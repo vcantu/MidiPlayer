@@ -25,9 +25,9 @@ public class NoteView extends JPanel {
 
     Graphics2D g2d = (Graphics2D)g;
 
-    drawNoteGrid(paddingLeft, paddingTop, 4, g2d);
+    drawNoteGrid(23, 0, paddingLeft, paddingTop, 4, g2d);
     drawNoteRange(0, paddingTop, g2d);
-    drawBeatNums(paddingLeft, paddingTop, 8, g2d);
+    drawBeatNums(23, 0, paddingLeft, paddingTop, 8, g2d);
   }
 
   private void drawNoteRange(int startX, int startY, Graphics2D g2d) {
@@ -42,20 +42,37 @@ public class NoteView extends JPanel {
     }
   }
 
-  private void drawBeatNums(int startX, int startY, int every, Graphics2D g2d) {
+  private void drawBeatNums(int startBeat, int offX, int startX, int startY, int every, Graphics2D g2d) {
 
-    for (int x = 0; x < model.getLength(); x += every) {
-      g2d.drawString(x + "", startX + stepH * x - 5, startY - 5);
+    for (int x = startBeat; x < model.getLength(); x++) {
+      if (x % every == 0)
+        g2d.drawString(x + "", startX + stepH * (x - startBeat) - 5, startY - 5);
     }
   }
 
-  private void drawNoteGrid(int startX, int startY, int splitEvery, Graphics2D g2d) {
+  private void drawNoteGrid(int startBeat, int offX,
+          int startX, int startY, int splitEvery, Graphics2D g2d) {
+    if (offX > 0) {
+      throw new IllegalArgumentException("Offset cannot be positive");
+    }
     Range range = model.getRange();
     int rangeLen = range.length();
 
-    for (int x = 0; x < model.getLength(); x++) {
+    for (int x = startBeat; x < model.getLength() ||
+            x * stepW < getWidth(); x++) {
       Beat b = model.getBeatAt(x);
       for (int y = 0; y < rangeLen; y++) {
+        int left = startY + (x - startBeat) * stepW, width = stepW;
+        int top = startY + y * stepH, height = stepH;
+        if (x - startBeat > 0) {
+          left -= offX;
+        }
+        else {
+          width += offX;
+        }
+        int right = left + width;
+        int bottom = top + height;
+
         if (model.hasNoteAt(x)) {
           switch (b.getStatusAt(Pitch.values()[range.max.ordinal() - y])) {
             default:
@@ -64,18 +81,16 @@ public class NoteView extends JPanel {
               break;
             case HEAD:
               g2d.setColor(Color.BLUE);
-              g2d.fillRect(startX + x * stepW, startY + y * stepH, stepW, stepH);
+              g2d.fillRect(left, top, width, height);
               break;
             case TAIL:
               g2d.setColor(Color.GREEN);
-              g2d.fillRect(startX + x * stepW, startY + y * stepH, stepW, stepH);
+              g2d.fillRect(left, top, width, height);
               break;
           }
         }
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
-        int left = startY + x * stepW, right = left + stepW;
-        int top = startY + y * stepH, bottom = top + stepH;
         g2d.drawLine(left, top, right, top);
         g2d.drawLine(left, bottom, right, bottom);
         if (x % splitEvery == 0) {
