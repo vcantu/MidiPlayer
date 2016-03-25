@@ -16,6 +16,8 @@ public class NoteView extends JPanel {
   private int stepH = 20, stepW = 20,
           paddingLeft = 40, paddingRight = 10,
           paddingTop = 40, paddingBottom = 10;
+  private int currBeat = 0, currPitch =0;
+  private int offX = 0, offY = 0;
 
   @Override
   public void paintComponent(Graphics g) {
@@ -25,51 +27,59 @@ public class NoteView extends JPanel {
 
     Graphics2D g2d = (Graphics2D)g;
 
-    drawNoteGrid(23, 0, paddingLeft, paddingTop, 4, g2d);
-    drawNoteRange(0, paddingTop, g2d);
-    drawBeatNums(23, 0, paddingLeft, paddingTop, 8, g2d);
+    drawNoteGrid(currBeat, currPitch, offX, offY, paddingLeft, paddingTop, 4, g2d);
+    drawNoteRange(currPitch, offY, 0, paddingTop, g2d);
+    drawBeatNums(currBeat, offX, paddingLeft, paddingTop, 8, g2d);
   }
 
-  private void drawNoteRange(int startX, int startY, Graphics2D g2d) {
+  private void drawNoteRange(int startPitch, int offY, int startX, int startY, Graphics2D g2d) {
     Range range = model.getRange();
+    int rangeLen = range.length();
     range.setReverse(true);
 
-    int y = 0;
-    for (Pitch p : range) {
-      g2d.drawString(p.toString(), startX,
-              startY + stepH * y + (stepH / 2) + 4);
-      y++;
+    for (int y = startPitch; y < rangeLen &&
+            (y - startPitch) * stepH < getHeight(); y++) {
+      Pitch p = Pitch.values()[range.max.ordinal() - y];
+      int top = startY + stepH * (y - startPitch) + (stepH / 2) + 4 - offY;
+      g2d.drawString(p.toString(), startX, top);
     }
   }
 
-  private void drawBeatNums(int startBeat, int offX, int startX, int startY, int every, Graphics2D g2d) {
-
-    for (int x = startBeat; x < model.getLength(); x++) {
-      if (x % every == 0)
-        g2d.drawString(x + "", startX + stepH * (x - startBeat) - 5, startY - 5);
+  private void drawBeatNums(int startBeat, int offX,
+                            int startX, int startY, int every, Graphics2D g2d) {
+    for (int x = startBeat; x < model.getLength() &&
+            (x - startBeat) * stepW < getWidth(); x++) {
+      if (x % every == 0) {
+        int left = startX + stepH * (x - startBeat) - 5;
+        if (x - startBeat > 0)
+          left -= offX;
+        g2d.drawString(x + "", left, startY - 5);
+      }
     }
   }
 
-  private void drawNoteGrid(int startBeat, int offX,
+  private void drawNoteGrid(int startBeat, int startPitch, int offX, int offY,
           int startX, int startY, int splitEvery, Graphics2D g2d) {
-    if (offX > 0) {
-      throw new IllegalArgumentException("Offset cannot be positive");
-    }
+
     Range range = model.getRange();
     int rangeLen = range.length();
 
-    for (int x = startBeat; x < model.getLength() ||
-            x * stepW < getWidth(); x++) {
+    for (int x = startBeat; x < model.getLength() &&
+            (x - startBeat) * stepW < getWidth(); x++) {
       Beat b = model.getBeatAt(x);
-      for (int y = 0; y < rangeLen; y++) {
+      for (int y = startPitch; y < rangeLen &&
+              (y - startPitch) * stepH < getHeight(); y++) {
         int left = startY + (x - startBeat) * stepW, width = stepW;
-        int top = startY + y * stepH, height = stepH;
-        if (x - startBeat > 0) {
+        int top = startY + (y - startPitch) * stepH, height = stepH;
+        if (x - startBeat > 0)
           left -= offX;
-        }
-        else {
+        else
           width += offX;
-        }
+        if (y - startPitch > 0)
+          top -= offY;
+        else
+          height += offY;
+
         int right = left + width;
         int bottom = top + height;
 
@@ -91,6 +101,10 @@ public class NoteView extends JPanel {
         }
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
+
+        if (x - startBeat == 0) {
+          g2d.drawLine(left, top, left, bottom);
+        }
         g2d.drawLine(left, top, right, top);
         g2d.drawLine(left, bottom, right, bottom);
         if (x % splitEvery == 0) {
@@ -103,6 +117,25 @@ public class NoteView extends JPanel {
             startX + model.getLength() * stepW, startY,
             startX + model.getLength() * stepW, startY + rangeLen * stepH);
   }
+
+  public void setBeat(int beat) {
+    if (beat < 0 || beat > model.getLength())
+      throw new IllegalArgumentException("invalid beat number");
+    currBeat = 0;
+    offX = 0;
+  }
+
+//  public void incrementX(int delta) {
+//    currBeat += delta / stepW;
+//    offX = offX + (delta % stepW);
+//    if (offX <)
+//  }
+//
+//  public void incrementY(int delta) {
+//    offY += delta;
+//    currPitch += offY / stepH;
+//    offY %= stepH;
+//  }
 
   public void setModel(ModelDisplayAdapter model) {
     this.model = model;
