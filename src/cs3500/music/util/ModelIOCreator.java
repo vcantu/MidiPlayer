@@ -52,19 +52,19 @@ public class ModelIOCreator {
   }
 
   private File songFile(String shortName) {
-    String filename = "";
+    String filename;
     switch (shortName) {
       case "mary":
-        filename =  "mary-little-lamb.txt";
+        filename = "res/mary-little-lamb.txt";
         break;
       case "myst1":
-        filename = "mystery-1.txt";
+        filename = "res/mystery-1.txt";
         break;
       case "myst2":
-        filename = "mystery-2.txt";
+        filename = "res/mystery-2.txt";
         break;
       case "myst3":
-        filename = "mystery-3.txt";
+        filename = "res/mystery-3.txt";
         break;
       default:
         throw new IllegalArgumentException("Invalid song name!");

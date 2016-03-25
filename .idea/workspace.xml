@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16c1ff0f-5921-405e-bfe1-00d73b868cf9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/MusicProject_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/mary-little-lamb.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/mystery-1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/mystery-2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/mystery-3.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/MusicProject_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/MusicProject_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cs3500/music/util/ModelIOCreator.java" afterPath="$PROJECT_DIR$/src/cs3500/music/util/ModelIOCreator.java" />
     </list>
@@ -63,8 +58,8 @@
       <file leaf-file-name="ModelIOCreator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cs3500/music/util/ModelIOCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.73706293">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.14405595">
+              <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/src/cs3500/music/util/GenericMusicModelBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -208,7 +203,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -242,20 +236,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -361,15 +341,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MusicProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MusicProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/mystery-3.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -388,9 +383,9 @@
       <recent name="cs3500.music.tests" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Viviano\IdeaProjects\MusicProject\res" />
       <recent name="C:\Users\Viviano\IdeaProjects\MusicProject\src" />
       <recent name="C:\Users\Viviano\IdeaProjects\MusicProject" />
-      <recent name="C:\Users\Viviano\IdeaProjects\MusicProject\res" />
       <recent name="C:\Users\Viviano\IdeaProjects" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -971,7 +966,8 @@
       <workItem from="1458172344095" duration="12236000" />
       <workItem from="1458495574105" duration="3946000" />
       <workItem from="1458500237643" duration="13207000" />
-      <workItem from="1458770501350" duration="10038000" />
+      <workItem from="1458770501350" duration="10280000" />
+      <workItem from="1458865659496" duration="428000" />
     </task>
     <task id="LOCAL-00001" summary="added method getNotesAt() to the model">
       <created>1457881253071</created>
@@ -1021,7 +1017,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458779989370</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added jar">
+      <created>1458789769576</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1458789769576</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1057,7 +1059,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87660000" />
+    <option name="totallyTimeSpent" value="88330000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -1075,7 +1077,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31233934" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833788" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1086,6 +1087,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833788" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1134,7 +1136,8 @@
     <MESSAGE value="added midi player view, added numbers and pitch hints to the gui frame, added the ability to reverese the range iterator" />
     <MESSAGE value="fixed instruments being off by one" />
     <MESSAGE value="added console input" />
-    <option name="LAST_COMMIT_MESSAGE" value="added console input" />
+    <MESSAGE value="added jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="added jar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1312,8 +1315,6 @@
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#464#465#0" expanded="false" />
-            <element signature="e#514#515#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1532,6 +1533,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/music/util/GenericMusicModelBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/music/MusicEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1542,15 +1558,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/music/util/GenericMusicModelBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mary-little-lamb.txt">
+    <entry file="file://$PROJECT_DIR$/res/mary-little-lamb.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
@@ -1558,7 +1566,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mystery-1.txt">
+    <entry file="file://$PROJECT_DIR$/res/mystery-1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="11" />
@@ -1566,7 +1574,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mystery-2.txt">
+    <entry file="file://$PROJECT_DIR$/res/mystery-2.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1574,7 +1582,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mystery-3.txt">
+    <entry file="file://$PROJECT_DIR$/res/mystery-3.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.81127983">
           <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
@@ -1582,18 +1590,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/music/util/ModelIOCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73706293">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.14405595">
+          <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

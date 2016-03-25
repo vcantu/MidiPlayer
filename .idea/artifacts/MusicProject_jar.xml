@@ -3,10 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/MusicProject_jar</output-path>
     <root id="archive" name="MusicProject.jar">
       <element id="module-output" name="MusicProject" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/mary-little-lamb.txt" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/mystery-1.txt" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/mystery-2.txt" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/mystery-3.txt" />
+      <element id="dir-copy" path="$PROJECT_DIR$/res" />
     </root>
   </artifact>
 </component>
