@@ -47,7 +47,7 @@ public class ModelIOCreator {
             MusicReader.parseFile(
                     new FileReader(songFile(song)),
                     new GenericMusicModelBuilder());
-    view.setModel(new ModelDisplayAdapterImpl(model));
+    view.setAdapter(new ModelDisplayAdapterImpl(model));
     return view;
   }
 

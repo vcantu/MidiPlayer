@@ -106,4 +106,5 @@ public interface MusicModel {
    * @return the tempo of this song
    */
   int getTempo();
+
 }

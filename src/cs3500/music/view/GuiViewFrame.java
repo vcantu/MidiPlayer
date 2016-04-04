@@ -1,7 +1,13 @@
 package cs3500.music.view;
 
+import cs3500.music.model.Note;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * A skeleton Frame (i.e., a window) in Swing
@@ -9,6 +15,7 @@ import java.awt.*;
 public class GuiViewFrame extends JFrame implements MusicView {
 
   private final NoteView noteView; // You may want to refine this to a subtype of JPanel
+  private ModelDisplayAdapter adapter;
 
   /**
    * Creates new GuiView
@@ -17,6 +24,7 @@ public class GuiViewFrame extends JFrame implements MusicView {
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     this.noteView = new NoteView();
+
 
     getContentPane().setLayout(new BorderLayout());
     this.getContentPane().add(noteView);
@@ -37,11 +45,12 @@ public class GuiViewFrame extends JFrame implements MusicView {
   /**
    * Set the model which will include the content this view will show
    *
-   * @param model new content of this view
+   * @param adapter new content of this view
    */
   @Override
-  public void setModel(ModelDisplayAdapter model) {
-    this.noteView.setModel(model);
+  public void setAdapter(ModelDisplayAdapter adapter) {
+    this.adapter = adapter;
+    this.noteView.setAdapter(this.adapter);
   }
 
   @Override
@@ -49,4 +58,7 @@ public class GuiViewFrame extends JFrame implements MusicView {
     return new Dimension(1500, 500);
   }
 
+  public void setNotesEditedListener(NoteView.NotesEditedListener listener) {
+    this.noteView.setNotesEditedListener(listener);
+  }
 }

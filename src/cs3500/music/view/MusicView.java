@@ -15,7 +15,7 @@ public interface MusicView {
   /**
    * Set the model which will include the content this view will show
    *
-   * @param model new content of this view
+   * @param adapter new content of this view
    */
-  void setModel(ModelDisplayAdapter model);
+  void setAdapter(ModelDisplayAdapter adapter);
 }

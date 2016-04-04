@@ -23,7 +23,7 @@ public class MusicEditor {
       MusicModel model = MusicReader.parseFile(
               new FileReader(args[1]),
               new GenericMusicModelBuilder());
-      view.setModel(new ModelDisplayAdapterImpl(model));
+      view.setAdapter(new ModelDisplayAdapterImpl(model));
       view.initialize();
     }
     else {

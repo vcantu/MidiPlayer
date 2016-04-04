@@ -53,11 +53,11 @@ public class MidiViewImpl implements MidiView {
   /**
    * Set the model which will include the content this view will show
    *
-   * @param model new content of this view
+   * @param adapter new content of this view
    */
   @Override
-  public void setModel(ModelDisplayAdapter model) {
-    this.model = model;
+  public void setAdapter(ModelDisplayAdapter adapter) {
+    this.model = adapter;
   }
 
   /**

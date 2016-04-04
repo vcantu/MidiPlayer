@@ -220,4 +220,5 @@ public class GenericMusicModel implements MusicModel {
   public int getTempo() {
     return this.tempo;
   }
+
 }

@@ -19,7 +19,7 @@ public class MusicConsoleView {
 
     MusicView view = new ConsoleView();
 
-    view.setModel(new ModelDisplayAdapterImpl(model));
+    view.setAdapter(new ModelDisplayAdapterImpl(model));
 
     view.initialize();
   }
