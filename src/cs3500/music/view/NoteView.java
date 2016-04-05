@@ -18,12 +18,13 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
   //padding
   private int paddingLeft = 40, paddingRight = 10,
           paddingTop = 40, paddingBottom = 10;
-  private int currBeat = 0, currPitch =0;
+  private int currBeat = 0, currPitch = 0;
   private int offX = 0, offY = 0;
 
   //floater fields
   private int mouseX = -1, mouseY = -1, diffX = -1, diffY = -1;
   private Note floater;
+  private Note selected;
 
   //listener
   private NotesEditedListener listener;
@@ -46,13 +47,48 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
 
     Graphics2D g2d = (Graphics2D)g;
 
-    drawNoteGrid(currBeat, currPitch, offX, offY, paddingLeft, paddingTop, 4, g2d);
-    drawNoteRange(currPitch, offY, 0, paddingTop, g2d);
-    drawBeatNums(currBeat, offX, paddingLeft, paddingTop, 8, g2d);
+    drawNoteGrid(paddingLeft, paddingTop, 4, g2d);
+    drawNoteRange(0, paddingTop, g2d);
+    drawBeatNums(paddingLeft, paddingTop, 8, g2d);
     drawFloater(g2d);
+    drawSelected(paddingLeft, paddingTop, g2d);
   }
 
-  //Draws the floater note
+  /**
+   * Redraws and highlights the selected note
+   * 
+   * @param g2d
+   */
+  private void drawSelected(int startX, int startY, Graphics2D g2d) {
+    if (selected != null) {
+      int b = selected.getBeat();
+      int d = selected.getDuration();
+      int p = selected.getPitch().ordinal();
+
+      int left = xFromBeat(b);
+      int top = yFromPitch(p + 1);
+      int right = xFromBeat(b + d);
+      int bottom = yFromPitch(p);
+
+      if (left < startX)
+        left = startX;
+      if (right > startX + (adapter.getLength() - currBeat) * stepW)
+        return;//don't draw
+
+      if (top < startY)
+        top = startY;
+
+
+      g2d.setColor(new Color(225, 0, 0, 150));
+      g2d.fillRect(left, top, right - left, bottom - top);
+    }
+  }
+
+  /**
+   * Draws the floating note on the mouse position
+   * 
+   * @param g2d
+   */
   private void drawFloater(Graphics2D g2d) {
     if (floater != null) {
       g2d.setColor(Color.BLUE);
@@ -64,52 +100,67 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     }
   }
 
-  private void drawNoteRange(int startPitch, int offY, int startX, int startY, Graphics2D g2d) {
+  /**
+   * Draws the Pitch ranges
+   * 
+   * @param g2d
+   */
+  private void drawNoteRange(int startX, int startY, Graphics2D g2d) {
     Range range = adapter.getRange();
     int rangeLen = range.length();
     range.setReverse(true);
 
-    for (int y = startPitch; y < rangeLen &&
-            (y - startPitch) * stepH < getHeight(); y++) {
+    for (int y = currPitch; y < rangeLen &&
+            (y - currPitch) * stepH < getHeight(); y++) {
       Pitch p = Pitch.values()[range.max.ordinal() - y];
-      int top = startY + stepH * (y - startPitch) + (stepH / 2) + 4 - offY;
+      int top = startY + stepH * (y - currPitch) + (stepH / 2) + 4 - offY;
       g2d.drawString(p.toString(), startX, top);
     }
   }
 
-  private void drawBeatNums(int startBeat, int offX,
-                            int startX, int startY, int every, Graphics2D g2d) {
-    for (int x = startBeat; x < adapter.getLength() &&
-            (x - startBeat) * stepW < getWidth(); x++) {
+  /**
+   * Draws the beat numbers
+   * 
+   * @param every
+   * @param g2d
+   */
+  private void drawBeatNums(int startX, int startY, int every, Graphics2D g2d) {
+    for (int x = currBeat; x < adapter.getLength() &&
+            (x - currBeat) * stepW < getWidth(); x++) {
       if (x % every == 0) {
-        int left = startX + stepH * (x - startBeat) - 5;
-        if (x - startBeat > 0)
+        int left = startX + stepH * (x - currBeat) - 5;
+        if (x - currBeat > 0)
           left -= offX;
         g2d.drawString(x + "", left, startY - 5);
       }
     }
   }
 
-  private void drawNoteGrid(int startBeat, int startPitch, int offX, int offY,
-          int startX, int startY, int splitEvery, Graphics2D g2d) {
+  /**
+   * Draws the note grid
+   * 
+   * @param splitEvery
+   * @param g2d
+   */
+  private void drawNoteGrid(int startX, int startY, int splitEvery, Graphics2D g2d) {
 
     Range range = adapter.getRange();
     int rangeLen = range.length();
 
-    for (int x = startBeat; x < adapter.getLength() &&
-            (x - startBeat) * stepW < getWidth(); x++) {
+    for (int x = currBeat; x < adapter.getLength() &&
+            (x - currBeat) * stepW < getWidth(); x++) {
       Beat b = adapter.getBeatAt(x);
-      for (int y = startPitch; y < rangeLen &&
-              (y - startPitch) * stepH < getHeight(); y++) {
+      for (int y = currPitch; y < rangeLen &&
+              (y - currPitch) * stepH < getHeight(); y++) {
 
         //set bounds
-        int left = startX + (x - startBeat) * stepW, width = stepW;
-        int top = startY + (y - startPitch) * stepH, height = stepH;
-          if (x - startBeat > 0)
+        int left = startX + (x - currBeat) * stepW, width = stepW;
+        int top = startY + (y - currPitch) * stepH, height = stepH;
+          if (x - currBeat > 0)
             left -= offX;
           else
             width -= offX;
-          if (y - startPitch > 0)
+          if (y - currPitch > 0)
             top -= offY;
           else
             height -= offY;
@@ -139,7 +190,7 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
         g2d.setStroke(new BasicStroke(2));
 
         //draw first line
-        if (x - startBeat == 0) {
+        if (x - currBeat == 0) {
           g2d.drawLine(left, top, left, bottom);
         }
 
@@ -157,18 +208,11 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
         if (x == adapter.getLength() - 1) {
           g2d.drawLine(right, top, right, bottom);
         }
-
       }
     }
   }
-
-  public Note getFloater() {
-    return floater;
-  }
-
-  public void setFloater(Note floater) {
-    this.floater = floater;
-  }
+  
+  
 
   /**
    * Returns the beat at a given X position
@@ -205,6 +249,18 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     return -1;
   }
 
+  private int xFromBeat(int beat) {
+    return paddingLeft + ((beat - currBeat) * stepW) - offX;
+  }
+
+  private int yFromPitch(int p) {
+    p -= adapter.getRange().min.ordinal();
+    p = adapter.getRange().length() - p;
+    p -= currPitch;
+
+    return paddingTop + (p * stepH) - offY;
+  }
+
   /**
    * Get the note at the given coordinates
    * @param x x position in pixels
@@ -229,7 +285,7 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
   public void setBeat(int beat) {
     if (beat < 0 || beat > adapter.getLength())
       throw new IllegalArgumentException("invalid beat number");
-    currBeat = 0;
+    currBeat = beat;
     offX = 0;
   }
 
@@ -248,6 +304,15 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
       offX -= stepW;
       currBeat++;
     }
+
+    if (currBeat < 0) {
+      currBeat = 0;
+      offX = 0;
+    }
+    if (currBeat >= adapter.getLength() - 1) {
+      currBeat = adapter.getLength() - 1;
+      offX = 0;
+    }
     this.repaint();
   }
 
@@ -265,6 +330,15 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     while (offY >= stepH) {
       offY -= stepH;
       currPitch++;
+    }
+
+    if (currPitch < 0) {
+      currPitch = 0;
+      offY = 0;
+    }
+    if (currPitch >= adapter.getRange().length() - 1) {
+      currPitch = adapter.getRange().length() - 1;
+      offY = 0;
     }
     this.repaint();
   }
@@ -316,15 +390,18 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
    */
   @Override
   public void mousePressed(MouseEvent e) {
+    this.selected = null;
     floater = this.getNoteAt(e.getX(), e.getY());
 
     if (floater != null) {
       int x = paddingLeft + stepW *
-              (currBeat + floater.getBeat()) + offX;
+              (floater.getBeat() - currBeat) - offX;
+
       diffX = e.getX() - x;
 
-      int y = paddingTop + stepH * (currPitch +
-              (adapter.getRange().max.ordinal() - pitchFromY(e.getY()))) + offY;
+      int y = paddingTop + stepH * (
+              (adapter.getRange().max.ordinal()
+                      - pitchFromY(e.getY())) - currPitch) - offY;
       diffY = e.getY() - y;
 
       if (this.listener != null)
@@ -353,6 +430,11 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
 
       if (this.listener != null)
         this.listener.onNoteAdded(newNote);
+
+      if (floater.equals(newNote)) {
+        this.selected = newNote;
+        this.listener.onNoteSelected(newNote);
+      }
 
       floater = null;
       repaint();
@@ -419,5 +501,9 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     void onNoteRemoved(Note note);
 
     void onNoteAdded(Note note);
+
+    void onNoteSelected(Note note);
+
+    void onNoteDeselected();
   }
 }

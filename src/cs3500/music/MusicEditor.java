@@ -4,6 +4,7 @@ import java.io.*;
 
 import javax.sound.midi.InvalidMidiDataException;
 
+import cs3500.music.controller.MusicController;
 import cs3500.music.model.MusicModel;
 import cs3500.music.util.GenericMusicModelBuilder;
 import cs3500.music.util.ModelIOCreator;
@@ -18,19 +19,12 @@ public class MusicEditor {
   public static void main(String[] args)
           throws IOException, InvalidMidiDataException {
 
-    if (args.length == 2) {
-      MusicView view = MusicViewFactory.build(args[0]);
-      MusicModel model = MusicReader.parseFile(
-              new FileReader(args[1]),
+    MusicModel model = MusicReader.parseFile(
+              new FileReader("mary-little-lamb.txt"),
               new GenericMusicModelBuilder());
-      view.setAdapter(new ModelDisplayAdapterImpl(model));
-      view.initialize();
-    }
-    else {
-      ModelIOCreator console = new ModelIOCreator(
-              new InputStreamReader(System.in), System.out);
-      console.create();
-    }
+
+    MusicController controller = new MusicController(model);
+    controller.start();
   }
 
 }

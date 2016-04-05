@@ -58,6 +58,15 @@ public class GuiViewFrame extends JFrame implements MusicView {
     return new Dimension(1500, 500);
   }
 
+
+  public void scrollX(int deltaX) {
+    noteView.incrementX(deltaX);
+  }
+
+  public void scrollY(int deltaY) {
+    noteView.incrementY(deltaY);
+  }
+
   public void setNotesEditedListener(NoteView.NotesEditedListener listener) {
     this.noteView.setNotesEditedListener(listener);
   }
