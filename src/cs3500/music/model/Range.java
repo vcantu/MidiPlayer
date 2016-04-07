@@ -11,10 +11,21 @@ public class Range implements Iterable<Pitch>, Iterator<Pitch> {
   public final Pitch min, max;
 
   /**
+   * Convenience constructor
+   *
+   * @param min minimum pitch
+   * @param max maximum pitch
+   * @throws IllegalArgumentException if min is greater than max
+   */
+  public Range(int min, int max) {
+    this(Pitch.values()[min], Pitch.values()[max]);
+  }
+
+  /**
    * Constructor
    *
    * @param min minimum pitch
-   * @param max maxmum pitch
+   * @param max maximum pitch
    * @throws IllegalArgumentException if min is greater than max
    */
   public Range(Pitch min, Pitch max) {
