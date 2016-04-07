@@ -1,13 +1,7 @@
 package cs3500.music.view;
 
-import cs3500.music.model.Note;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * A skeleton Frame (i.e., a window) in Swing
@@ -24,7 +18,6 @@ public class GuiViewFrame extends JFrame implements MusicView {
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     this.noteView = new NoteView();
-
 
     getContentPane().setLayout(new BorderLayout());
     this.getContentPane().add(noteView);
@@ -58,6 +51,26 @@ public class GuiViewFrame extends JFrame implements MusicView {
     return new Dimension(1500, 500);
   }
 
+
+  /**
+   * Relay methods
+   */
+
+  public void setBeat(double beat) {
+    noteView.setBeat(beat);
+  }
+
+  public void setDrawBeat(int beat) {
+    noteView.setDrawBeat(beat);
+  }
+
+  public void setAddingNote(boolean state) {
+    noteView.setAddingNote(state);
+  }
+
+  public boolean isAddingNotes() {
+    return noteView.isAddingNotes();
+  }
 
   public void scrollX(int deltaX) {
     noteView.incrementX(deltaX);

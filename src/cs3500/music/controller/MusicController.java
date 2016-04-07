@@ -9,7 +9,11 @@ import java.awt.event.KeyEvent;
 /**
  * Created by Viviano on 4/4/2016.
  */
-public class MusicController implements NoteView.NotesEditedListener {
+public class MusicController implements NoteView.NotesEditedListener,
+        MidiView.OnTickListener{
+
+  private static final long MAX_TEMPO = 2000000;
+  private static final long MIN_TEMPO = 10000;
 
   private final MusicModel model;
 
@@ -18,31 +22,31 @@ public class MusicController implements NoteView.NotesEditedListener {
 
   private final KeyboardListener keys;
 
-  private Note currNote = null;
+  private long tempo;
 
   public MusicController(MusicModel model) {
     this.model = model;
 
-    this.gui = new GuiViewFrame();
-    this.midi = new MidiViewImpl();
-
     ModelDisplayAdapter adapter = new ModelDisplayAdapterImpl(model);
-
+    this.gui = new GuiViewFrame();
     gui.setAdapter(adapter);
     gui.setNotesEditedListener(this);
-    midi.setAdapter(adapter);
 
+    this.midi = new MidiViewImpl();
+    midi.setAdapter(adapter);
+    midi.setOnTickListener(this);
+    midi.setTickResolution(10);
+    this.tempo = model.getTempo();
+    midi.setTempo(tempo);
 
     keys = new KeyboardListener();
-    addArrowKeys();
-    addDeleteKey();
-
+    addKeys();
     gui.addKeyListener(keys);
   }
 
   public void start() {
     gui.initialize();
-    //midi.initialize();
+    midi.initialize();
   }
 
 
@@ -57,15 +61,48 @@ public class MusicController implements NoteView.NotesEditedListener {
   }
 
   @Override
-  public void onNoteSelected(Note note) {
-    this.currNote = note;
+  public void onBeatChanged(double beat) {
+    midi.setBeat((int)beat);
   }
 
+  /**
+   * Called every tick while playing
+   *
+   * @param beat     the current beat of the song
+   * @param progress the progress from [0, 100) progress will be 0 at the
+   *                 moment a beat is played otherwise it represents the
+   */
   @Override
-  public void onNoteDeselected() {
-    this.currNote = null;
+  public void onTick(int beat, int progress) {
+    gui.setBeat(beat + progress / 100d);
   }
 
+
+
+  private void addKeys() {
+    addArrowKeys();
+    addTempoKeys();
+    //play pause
+    keys.addKeyPressedListener(KeyEvent.VK_SPACE, () -> {
+      if (!midi.isPlaying())
+        midi.play();
+      else
+        midi.pause();
+    });
+    keys.addKeyPressedListener(KeyEvent.VK_HOME, () -> {
+      midi.setBeat(0);
+      gui.setBeat(0);
+    });
+    keys.addKeyPressedListener(KeyEvent.VK_END, () -> {
+      midi.setBeat(model.getLength());
+      gui.setBeat(model.getLength());
+    });
+
+    keys.addKeyPressedListener(KeyEvent.VK_A, () -> {
+      gui.setAddingNote(!gui.isAddingNotes());
+    });
+
+  }
 
   private void addArrowKeys() {
     keys.addKeyPressedListener(KeyEvent.VK_RIGHT, () -> {
@@ -76,17 +113,29 @@ public class MusicController implements NoteView.NotesEditedListener {
     });
 
     keys.addKeyPressedListener(KeyEvent.VK_UP, () -> {
-      gui.scrollY(5);
+      gui.scrollY(-5);
     });
     keys.addKeyPressedListener(KeyEvent.VK_DOWN, () -> {
-      gui.scrollY(-5);
+      gui.scrollY(5);
     });
   }
 
-  private void addDeleteKey() {
-    keys.addKeyPressedListener(KeyEvent.VK_DELETE, () -> {
-      model.removeNote(currNote);
-      gui.initialize();
+  private void addTempoKeys() {
+    keys.addKeyPressedListener(KeyEvent.VK_EQUALS, () -> {
+      tempo -= 1000;
+      if (tempo < MIN_TEMPO)
+        tempo = MIN_TEMPO;
+      midi.setTempo(tempo);
+    });
+    keys.addKeyPressedListener(KeyEvent.VK_MINUS, () -> {
+      tempo += 1000;
+      if (tempo > MAX_TEMPO)
+        tempo = MAX_TEMPO;
+      midi.setTempo(tempo);
+    });
+    keys.addKeyPressedListener(KeyEvent.VK_BACK_SPACE, () -> {
+      tempo = model.getTempo();
+      midi.setTempo(tempo);
     });
   }
 }

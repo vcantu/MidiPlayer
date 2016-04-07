@@ -12,9 +12,9 @@ public class MusicNote implements Note {
   public MusicNote(int beat, int duration, int instrument, Pitch pitch, int volume) {
     Objects.requireNonNull(pitch);
     if (beat < 0)
-      throw new IllegalArgumentException("Beat cannot be negative");
-    if (duration <= 0)
-      throw new IllegalArgumentException("Length cannot <= 0");
+      throw new IllegalArgumentException("Beat cannot be negative: " + beat);
+    if (duration < 0)
+      throw new IllegalArgumentException("Duration cannot be negative: " + duration);
     this.beat = beat;
     this.duration = duration;
     this.instrument = instrument;
