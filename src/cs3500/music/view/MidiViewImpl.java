@@ -87,9 +87,7 @@ public class MidiViewImpl implements MidiView, Runnable {
   public void run() {
     if (model == null)
       return;
-
     playing = true;
-
     for (; currBeat < model.getLength(); currBeat++){
       if (!playing) {
         break;
@@ -101,24 +99,37 @@ public class MidiViewImpl implements MidiView, Runnable {
               playNote(n, (int) tempo);
         }
       }
-      try {
-
-        if (listener != null)
-          listener.onTick(currBeat, 0);//first tick
-        double f = resolution / 100d;
-        long milli = tempo / 1000;
-        long nano = tempo % 1000;
-
-        for (int i = resolution; i <= 100; i += resolution) {
-          if (listener != null)
-            listener.onTick(currBeat, i);
-          Thread.sleep((long)(milli * f), (int)(nano * f));
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      sleep();
     }
     playing = false;
+  }
+
+  /**
+   * Sleeps for the designated amount of time
+   */
+  private void sleep() {
+    try {
+      //resolution caps
+      int res = resolution;
+      if (tempo < 20000)
+        res = 25;
+      if (tempo < 5000)
+        res = 1;
+
+      if (listener != null)
+        listener.onTick(currBeat, 0);//first tick
+      double f = res / 100d;
+      long milli = tempo / 1000;
+      long nano = tempo % 1000;
+
+      for (int i = res; i <= 100; i += res) {
+        if (listener != null)
+          listener.onTick(currBeat, i);
+        Thread.sleep((long)(milli * f), (int)(nano * f));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**

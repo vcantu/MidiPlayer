@@ -17,7 +17,7 @@ public class MusicEditor {
           throws IOException, InvalidMidiDataException {
 
     MusicModel model = MusicReader.parseFile(
-              new FileReader("mary-little-lamb.txt"),
+              new FileReader("mystery-2.txt"),
               new GenericMusicModelBuilder());
 
     MusicController controller = new MusicController(model);

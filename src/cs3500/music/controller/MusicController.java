@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
  * Created by Viviano on 4/4/2016.
  */
 public class MusicController implements NoteView.NotesEditedListener,
-        MidiView.OnTickListener{
+        MidiView.OnTickListener {
 
   private static final long MAX_TEMPO = 2000000;
   private static final long MIN_TEMPO = 10000;
@@ -99,7 +99,7 @@ public class MusicController implements NoteView.NotesEditedListener,
     });
 
     keys.addKeyPressedListener(KeyEvent.VK_A, () -> {
-      gui.setAddingNote(!gui.isAddingNotes());
+      gui.toggleAddMode(!gui.isAddingNotes());
     });
 
   }
@@ -122,13 +122,13 @@ public class MusicController implements NoteView.NotesEditedListener,
 
   private void addTempoKeys() {
     keys.addKeyPressedListener(KeyEvent.VK_EQUALS, () -> {
-      tempo -= 1000;
+      tempo -= 10000;
       if (tempo < MIN_TEMPO)
         tempo = MIN_TEMPO;
       midi.setTempo(tempo);
     });
     keys.addKeyPressedListener(KeyEvent.VK_MINUS, () -> {
-      tempo += 1000;
+      tempo += 10000;
       if (tempo > MAX_TEMPO)
         tempo = MAX_TEMPO;
       midi.setTempo(tempo);

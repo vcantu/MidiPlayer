@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Objects;
 
 /**
  * Created by Viviano on 3/18/2016.
@@ -287,7 +288,6 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
   }
 
 
-
   /**
    * Returns the beat at a given X position
    *
@@ -344,14 +344,37 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     this.repaint();
   }
 
-  public void setAddingNote(boolean status) {
+  /**
+   * Call this to switch the view between add mode and move mode
+   *
+   * @param status true if add mode false if move mode
+   */
+  public void toggleAddMode(boolean status) {
     addingNote = status;
   }
 
+  /**
+   * @return whether this view is in add mode or note
+   */
+  public boolean isAddingNotes() {
+    return addingNote;
+  }
+
+  /**
+   * Helper that calls setBeat with forceView as true
+   *
+   * @param beat beat to set decimal because it can be set in between
+   */
   public void setBeat(double beat) {
     setBeat(beat, true);
   }
 
+  /**
+   * Sets the current red line beat
+   *
+   * @param beat beat to set decimal because it can be set in between
+   * @param forceView force the view to look at it
+   */
   public void setBeat(double beat, boolean forceView) {
     if (beat < 0)
       beat = 0;
@@ -431,32 +454,13 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
 
   /**
    * Sets this views adapter
+   *
    * @param adapter ModelDisplayAdapter
    */
   public void setAdapter(ModelDisplayAdapter adapter) {
+    Objects.requireNonNull(adapter);
     this.adapter = adapter;
   }
-
-
-  /**
-   * If the <code>preferredSize</code> has been set to a
-   * non-<code>null</code> value just returns it.
-   * If the UI delegate's <code>getPreferredSize</code>
-   * method returns a non <code>null</code> value then return that;
-   * otherwise defer to the component's layout manager.
-   *
-   * @return the value of the <code>preferredSize</code> property
-   * @see #setPreferredSize
-   */
-  @Override
-  public Dimension getPreferredSize() {
-    if (this.adapter == null)
-      return super.getPreferredSize();
-    else
-      return new Dimension(adapter.getLength() * stepW + paddingLeft + paddingRight,
-              adapter.getRange().length() * stepH + paddingTop + paddingBottom);
-  }
-
 
   /**
    * Invoked when the mouse button has been clicked (pressed
@@ -466,7 +470,6 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
    */
   @Override
   public void mouseClicked(MouseEvent e) {
-
   }
 
   /**
@@ -476,6 +479,7 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
    */
   @Override
   public void mousePressed(MouseEvent e) {
+    //if want to move bar then set it
     int x1 = e.getX(), y1 = e.getY();
     int x2 = (int)(paddingLeft + (beat - currBeat) * stepW) - offX,
             y2 = paddingTop;
@@ -486,6 +490,7 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
       return;
     }
 
+    //if adding mode is on
     if (!addingNote) {
       floater = this.getNoteAt(e.getX(), e.getY());
 
@@ -506,6 +511,7 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
         repaint();
       }
     }
+    //if not adding note then move note
     else {
       this.addBeat = this.beatFromX(e.getX());
       this.addPitch = Pitch.values()[this.pitchFromY(e.getY())];
@@ -602,6 +608,12 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     updateMousePos(e.getX(), e.getY());
   }
 
+  /**
+   * Updates mouse position and all variables depending on it
+   *
+   * @param x mouse x position
+   * @param y mouse y position
+   */
   private void updateMousePos(int x, int y) {
     mouseX = x;
     mouseY = y;
@@ -615,21 +627,40 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
     }
   }
 
-
+  /**
+   * Set this in order for the view to work properly
+   * @param listener
+   */
   public void setNotesEditedListener(NotesEditedListener listener) {
     this.listener = listener;
   }
 
-  public boolean isAddingNotes() {
-    return addingNote;
-  }
-
+  /**
+   * Listener for Note Changing events
+   */
   public interface NotesEditedListener {
 
+    /**
+     * Called when the view removes a note
+     *
+     * @param note note removed
+     */
     void onNoteRemoved(Note note);
 
+    /**
+     * Called when the view adds a note
+     *
+     * @param note
+     */
     void onNoteAdded(Note note);
 
+    /**
+     * If the view moves changes the current playing beat this will be called
+     * Make sure any notion of current beat in any other view syncs with this method
+     *
+     * @param beat convert to int to get actual beat int. Any decimal is a result
+     *             of the bar being in between beats
+     */
     void onBeatChanged(double beat);
   }
 }

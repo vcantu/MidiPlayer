@@ -48,38 +48,76 @@ public class GuiViewFrame extends JFrame implements MusicView {
 
   @Override
   public Dimension getPreferredSize(){
-    return new Dimension(1500, 500);
+    return new Dimension(1500, 800);
   }
 
 
   /**
-   * Relay methods
+   * Set this views current beat
+   *
+   * @param beat
    */
-
   public void setBeat(double beat) {
     noteView.setBeat(beat);
   }
 
-  public void setDrawBeat(int beat) {
-    noteView.setDrawBeat(beat);
+  /**
+   * Sets the current red line beat
+   *
+   * @param beat beat to set decimal because it can be set in between
+   * @param forceView force the view to look at it
+   */
+  public void setBeat(double beat, boolean forceView) {
+    noteView.setBeat(beat, forceView);
   }
 
-  public void setAddingNote(boolean state) {
-    noteView.setAddingNote(state);
+  /**
+   * Set this views viewable beat
+   *
+   * @param beat
+   */
+  public void setViewBeat(int beat) {
+    this.noteView.setDrawBeat(beat);
   }
 
+  /**
+   * Call this to switch the view between add mode and move mode
+   *
+   * @param status true if add mode false if move mode
+   */
+  public void toggleAddMode(boolean status) {
+    noteView.toggleAddMode(status);
+  }
+
+  /**
+   * @return whether this view is in add mode or note
+   */
   public boolean isAddingNotes() {
     return noteView.isAddingNotes();
   }
 
+  /**
+   * Scroll the view by deltaX pixels
+   *
+   * @param deltaX amount of pixels
+   */
   public void scrollX(int deltaX) {
     noteView.incrementX(deltaX);
   }
 
+  /**
+   * Scroll the view by deltaY pixels
+   *
+   * @param deltaY amount of pixels
+   */
   public void scrollY(int deltaY) {
     noteView.incrementY(deltaY);
   }
 
+  /**
+   * Set this in order for the view to work properly
+   * @param listener
+   */
   public void setNotesEditedListener(NoteView.NotesEditedListener listener) {
     this.noteView.setNotesEditedListener(listener);
   }
