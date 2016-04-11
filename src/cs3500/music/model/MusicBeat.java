@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Viviano on 3/3/2016.
  */
-public class MusicBeat implements Beat {
+public class MusicBeat implements Beat<Note> {
 
   private final List<Note> notes;
   private final int value;

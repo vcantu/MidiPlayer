@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * Created by Viviano on 3/18/2016.
  */
-public class ModelDisplayAdapterImpl implements ModelDisplayAdapter {
+public class ModelDisplayAdapterImpl implements ModelDisplayAdapter<Beat> {
 
-  MusicModel model;
+  private final MusicModel model;
 
   public ModelDisplayAdapterImpl(MusicModel model) {
     this.model = model;

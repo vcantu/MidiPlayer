@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Viviano on 3/18/2016.
  */
-public interface ModelDisplayAdapter {
+public interface ModelDisplayAdapter<B extends Beat> {
 
   /**
    * Gets the notes at the given beat
@@ -16,7 +16,7 @@ public interface ModelDisplayAdapter {
    * @return beat an immutable beat
    * @throws IllegalArgumentException if i < 0
    */
-  Beat getBeatAt(int i);
+  B getBeatAt(int i);
 
   /**
    * @return the maximum range of this song

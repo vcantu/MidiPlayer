@@ -5,14 +5,14 @@ import java.util.List;
 /**
  * Created by Viviano on 2/29/2016.
  */
-public interface MusicModel {
+public interface MusicModel<N extends Note, B extends Beat> {
 
   /**
    * Adds a note and updates all beats
    *
    * @param note note to add
    */
-  void addNote(Note note);
+  void addNote(N note);
 
   /**
    * Removes the note at the given location
@@ -22,14 +22,14 @@ public interface MusicModel {
    * @return the note removed
    * @throws IllegalArgumentException if beat < 0
    */
-  Note removeNote(int beat, Pitch pitch);
+  N removeNote(int beat, Pitch pitch);
 
   /**
    * Removes note and updates beats
    *
    * @param note removes note
    */
-  void removeNote(Note note);
+  void removeNote(N note);
 
   /**
    * Gets the notes at the given beat
@@ -38,7 +38,7 @@ public interface MusicModel {
    * @return beat at i
    * @throws IllegalArgumentException if i < 0
    */
-  Beat getBeatAt(int i);
+  B getBeatAt(int i);
 
   /**
    * Returns the TOP note at a given location
@@ -48,7 +48,7 @@ public interface MusicModel {
    * @return a note at the given beat and pitch
    * @throws IllegalArgumentException if beat < 0
    */
-  Note getNoteAt(int beat, Pitch pitch);
+  N getNoteAt(int beat, Pitch pitch);
 
   /**
    * Returns a list of all the notes at a given location
@@ -58,7 +58,7 @@ public interface MusicModel {
    * @return a list of notes which could be empty
    * @throws IllegalArgumentException if beat < 0
    */
-  List<Note> getNotesAt(int beat, Pitch pitch);
+  List<N> getNotesAt(int beat, Pitch pitch);
 
   /**
    * Clears all of the notes in this song
@@ -90,12 +90,13 @@ public interface MusicModel {
   void setLength(int length);
 
   /**
-   * This will be called whenever a new beat needs to be added, usually when a nore is added
+   * This will be called whenever a new beat needs to be added, usually when a note is added
+   * If yoiu create your own beat class, override this
    *
    * @param beatValue number from 0 this song's length
    * @return a new beat at beatValue
    */
-  Beat newBeat(int beatValue);
+  B newBeat(int beatValue);
 
   /**
    * Sets the tempo of this piece

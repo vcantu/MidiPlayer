@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Viviano on 2/29/2016.
  */
-public interface Beat extends Iterable<Note> {
+public interface Beat<N extends Note> extends Iterable<N> {
 
   /**
    * Status at each pitch
@@ -33,7 +33,7 @@ public interface Beat extends Iterable<Note> {
    * @param p pitch to check
    * @return the note a p or null if there isn't one
    */
-   Note getNoteAt(Pitch p);
+   N getNoteAt(Pitch p);
 
   /**
    * Returns a list of all the notes at a given location
@@ -42,7 +42,7 @@ public interface Beat extends Iterable<Note> {
    * @return a list of notes which could be empty
    * @throws IllegalArgumentException if beat < 0
    */
-   List<Note> getNotesAt(Pitch pitch);
+   List<N> getNotesAt(Pitch pitch);
 
   /**
    * Adds note to this beat
@@ -51,14 +51,14 @@ public interface Beat extends Iterable<Note> {
    * @throws IllegalArgumentException if this beat's value does not
    * match the notes beat and duration
    */
-   void addNote(Note n);
+   void addNote(N n);
 
   /**
    * Removes note from this beat
    *
    * @param n note to remove
    */
-   void removeNote(Note n);
+   void removeNote(N n);
 
   /**
    * Removes the not at a pitch if any
@@ -66,7 +66,7 @@ public interface Beat extends Iterable<Note> {
    * @param p pitch to remove a note at
    * @return the note removed or null if there is none
    */
-  Note removeNoteAt(Pitch p);
+  N removeNoteAt(Pitch p);
 
   /**
    * If this is true do not call Range on it

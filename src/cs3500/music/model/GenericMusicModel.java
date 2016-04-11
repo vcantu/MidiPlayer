@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Represents a Generic Music Model
  */
-public class GenericMusicModel implements MusicModel {
+public class GenericMusicModel implements MusicModel<Note, Beat> {
 
   private final Map<Integer, Beat> beats;
   private int length, tempo;

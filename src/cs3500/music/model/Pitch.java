@@ -146,4 +146,34 @@ public enum Pitch {
   public String toString() {
     return this.str;
   }
+
+  /**
+   * Returns a pitch from a given midi number
+   *
+   * @param i midi number
+   * @return a pitch
+   */
+  public static Pitch fromInt(int i) {
+    if (i < 0 || i >= values().length)
+      throw new IllegalArgumentException("Invalid pitch number");
+    return values()[i];
+  }
+
+  /**
+   * Returns a pitch from a combination of octave and note
+   *
+   * @param octave a number from 0 - 10
+   * @param note a number from 0 - 11 where 0 is A and 11 is G#
+   *             min pitch is C0 and max is G10
+   * @return a pitch
+   */
+  public static Pitch fromComb(int octave, int note) {
+    try {
+      return values()[12 * octave + note - 3];
+    }
+    catch (Exception e) {
+      throw new IllegalArgumentException("Invalid combination of octave: "
+              + octave + " and note: " + note);
+    }
+  }
 }
