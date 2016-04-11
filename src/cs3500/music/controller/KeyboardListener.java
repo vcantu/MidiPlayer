@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class represents a keyboard listener. It is configurable by the controller that instantiates
- * it.
+ * This class represents a keyboard listener. It is configurable by the controller
+ * that instantiates it.
  *
- * This listener keeps three maps, one each for key typed, key pressed and key released Each map
- * stores a key mapping. A key mapping is a pair (keystroke,code to be executed with that keystroke)
+ * This listener keeps three maps, one each for key typed, key pressed and key released
+ * Each map stores a key mapping. A key mapping is a pair (keystroke,code to be
+ * executed with that keystroke)
  * The latter part of that pair is actually a function object, i.e. an object of a class that
  * implements the Runnable interface
  *
@@ -98,4 +99,11 @@ public class KeyboardListener implements KeyListener {
     if (keyReleasedMap.containsKey(e.getKeyCode()))
       keyReleasedMap.get(e.getKeyCode()).run();
   }
+
+
+ void fakePress(int k) {
+   this.keyPressedMap.get(k).run();
+  }
+
+
 }

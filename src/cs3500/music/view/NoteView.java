@@ -663,4 +663,11 @@ public class NoteView extends JPanel implements MouseListener, MouseMotionListen
      */
     void onBeatChanged(double beat);
   }
+
+  // DO NOT USE THIS - TESTING PURPOSES
+  public NotesEditedListener getListener() {
+    return this.listener;
+  }
+
+
 }

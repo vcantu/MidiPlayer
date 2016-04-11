@@ -13,7 +13,7 @@ public class MusicController implements NoteView.NotesEditedListener,
         MidiView.OnTickListener {
 
   private static final long MAX_TEMPO = 2000000;
-  private static final long MIN_TEMPO = 10000;
+    private static final long MIN_TEMPO = 10000;
 
   private final MusicModel model;
 
@@ -137,5 +137,26 @@ public class MusicController implements NoteView.NotesEditedListener,
       tempo = model.getTempo();
       midi.setTempo(tempo);
     });
+  }
+
+
+  MusicModel getModel() {
+    return model;
+  }
+
+  GuiViewFrame getGui() {
+    return gui;
+  }
+
+  MidiView getMidi() {
+    return midi;
+  }
+
+  KeyboardListener getKeyboardListener() {
+    return keys;
+  }
+
+  public long getTempo() {
+    return tempo;
   }
 }

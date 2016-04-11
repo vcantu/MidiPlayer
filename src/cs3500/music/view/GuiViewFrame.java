@@ -121,4 +121,9 @@ public class GuiViewFrame extends JFrame implements MusicView {
   public void setNotesEditedListener(NoteView.NotesEditedListener listener) {
     this.noteView.setNotesEditedListener(listener);
   }
+
+  public NoteView.NotesEditedListener getListener() {
+    return this.noteView.getListener();
+  }
+
 }
