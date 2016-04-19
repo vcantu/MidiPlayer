@@ -1,6 +1,5 @@
 package cs3500.music.util;
 
-import cs3500.music.model.MusicModel;
 import cs3500.music.view.ConsoleView;
 import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.MidiViewImpl;

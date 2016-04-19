@@ -2,7 +2,6 @@ package cs3500.music.view;
 
 import cs3500.music.model.Beat;
 import cs3500.music.model.Note;
-import cs3500.music.model.Range;
 
 import javax.sound.midi.*;
 
@@ -93,7 +92,7 @@ public class MidiViewImpl implements MidiView, Runnable {
         break;
       }
       if (model.hasNoteAt(currBeat)) {
-        Beat b = model.getBeatAt(currBeat);
+        Beat<Note> b = model.getBeatAt(currBeat);
         for (Note n : b) {
           if (n.getBeat() == currBeat)
               playNote(n, (int) tempo);
